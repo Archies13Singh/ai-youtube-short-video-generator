@@ -30,7 +30,11 @@ const CreateNewVideo = () => {
 
   const GenerateVideo = async () => {
     console.log("Generating video...");
-  
+
+    if(user?.credits <= 0){
+      toast('Please Add More Credits');
+    }
+
     if (
       !formData?.topic ||
       !formData?.script ||
@@ -41,9 +45,9 @@ const CreateNewVideo = () => {
       console.error("Error: Enter all fields");
       return;
     }
-  
+
     setLoading(true);
-  
+
     try {
       // Save video data first
       const resp = await createInitialVideoDataRecord({
@@ -55,16 +59,17 @@ const CreateNewVideo = () => {
         voice: formData?.voice,
         uid: user?._id,
         createdBy: user?.email,
+        credits: user?.credits,
       });
-  
+
       console.log("Convex response:", resp);
-  
+
       // Send request to generate video data
       const result = await axios.post("/api/generate-video-data", {
         ...formData,
-        recordId : resp
+        recordId: resp,
       });
-  
+
       console.log("API response:", result.data);
     } catch (error) {
       console.error("Error generating video:", error);
@@ -72,7 +77,7 @@ const CreateNewVideo = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div>
       <h2 className="text-3xl">Create New Video</h2>
@@ -88,7 +93,11 @@ const CreateNewVideo = () => {
           <Caption onHandleInputChangeMethod={onHandleInputChangeMethod} />
 
           <Button className="w-full mt-5" onClick={GenerateVideo}>
-            {loading ? <LoaderIcon className="animate-spin"/> : <WandSparkles /> }
+            {loading ? (
+              <LoaderIcon className="animate-spin" />
+            ) : (
+              <WandSparkles />
+            )}
             Generate Video
           </Button>
         </div>

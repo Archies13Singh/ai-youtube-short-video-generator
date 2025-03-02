@@ -1,11 +1,15 @@
 import React from "react";
-import DashboardProvider from "../provider";
+import VideoList from "./_components/VideoList"
+
 
 const Dashboard = () => {
+
   return (
     <div>
-      {/* <DashboardProvider/> */}
-      <h1>Dashboard</h1>
+      <h2 className="font-bold text-3xl">
+        My Videos
+      </h2>
+      <VideoList/>
     </div>
   );
 };

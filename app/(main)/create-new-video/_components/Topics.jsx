@@ -11,6 +11,7 @@ import { Button } from "../../../../components/ui/button";
 import { Textarea } from "../../../../components/ui/textarea";
 import { LoaderIcon, SparklesIcon } from "lucide-react";
 import axios from "axios";
+import { useAuthContext } from "../../../../app/provider";
 
 const Topics = ({ onHandleInputChangeMethod }) => {
   const suggestions = [
@@ -31,7 +32,12 @@ const Topics = ({ onHandleInputChangeMethod }) => {
   const [selectedScriptIndex, setSelectedScriptIndex] = useState();
   const [scripts, setScripts] = useState();
   const [loading, setLoading] = useState(false);
+
+  const {user} = useAuthContext()
   const generateScript = async () => {
+    if(user?.credits <= 0){
+      toast('Please Add More Credits');
+    }
     try {
       setLoading(true);
       setSelectedScriptIndex(null);
