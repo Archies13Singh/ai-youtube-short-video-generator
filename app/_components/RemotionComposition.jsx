@@ -10,7 +10,7 @@ import {
   Audio,
 } from "remotion";
 
-const RemotionComposition = ({ videoData, setDurationInFrame }) => {
+const RemotionComposition = ({ videoData }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -20,9 +20,9 @@ const RemotionComposition = ({ videoData, setDurationInFrame }) => {
   useEffect(() => {
     if (videoData && captions.length > 0) {
       const totalDuration = captions[captions.length - 1]?.end * fps;
-      setDurationInFrame(Math.round(totalDuration)); // Avoid setting state in render
+      // setDurationInFrame(Math.round(totalDuration)); // Avoid setting state in render
     }
-  }, [videoData, captions, fps, setDurationInFrame]);
+  }, [videoData, captions, fps]);
 
   const totalDurationFrames =
     captions.length > 0 ? captions[captions.length - 1]?.end * fps : 100;

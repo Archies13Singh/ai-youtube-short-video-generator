@@ -4,6 +4,7 @@ import { createClient } from "@deepgram/sdk";
 import { generateImageScript } from "../configs/AiModel";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../convex/_generated/api";
+import { getServices, renderMediaOnCloudrun } from "@remotion/cloudrun/client";
 
 const BASE_URL = "https://aigurulab.tech";
 
@@ -41,6 +42,8 @@ export const generateVideoData = inngest.createFunction(
       event.data;
 
     const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL);
+
+    // Generate Audio File
     const generateAudioFile = await step.run("generateAudioFile", async () => {
       const result = await axios.post(
         BASE_URL + "/api/text-to-speech",
@@ -56,7 +59,7 @@ export const generateVideoData = inngest.createFunction(
         }
       );
 
-      console.log(result?.data?.audio, "resull");
+      // console.log(result?.data?.audio, "resull");
       return result?.data?.audio;
       // return "https://firebasestorage.googleapis.com/v0/b/projects-2025-71366.firebasestorage.app/o/audio%2F1740565756872.mp3?alt=media&token=afcdaa9a-ace2-4306-bf4e-6fd08f5d292b";
     });
@@ -135,6 +138,49 @@ export const generateVideoData = inngest.createFunction(
 
       return result;
     });
-    return updateDB;
+
+    const renderVideo = await step.run("renderVideo", async () => {
+      // Render the video
+      const services = await getServices({
+        region: "us-east1",
+        compatibleOnly: true,
+      });
+
+      const serviceName = services[0].serviceName;
+      const result = await renderMediaOnCloudrun({
+        serviceName,
+        region: "us-east1",
+        serveUrl: process.env.GCP_SERVER_URL,
+        composition: "Yshorts",
+        inputProps: {
+          videoData: {
+            audioUrl: generateAudioFile,
+            captionsJson: generateCaptions,
+            images: generateImages,
+          },
+        },
+        codec: "h264",
+        // updateRenderProgress,
+      });
+
+      if (result.type === "success") {
+        console.log(result.bucketName);
+        console.log(result.renderId);
+      }
+      return result?.publicUrl;
+    });
+
+    const updateDownLoadUrl = await step.run("UpdateDownLoadUrl", async () => {
+      const result = await convex.mutation(api?.videoData?.updateVideoRecord, {
+        recordId: recordId,
+        audioUrl: generateAudioFile,
+        captionsJson: generateCaptions,
+        images: generateImages,
+        downloadUrl : renderVideo
+      });
+
+      return result;
+    });
+    return updateDownLoadUrl;
   }
 );

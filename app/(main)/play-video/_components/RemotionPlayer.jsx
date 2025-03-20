@@ -4,15 +4,14 @@ import { Player } from "@remotion/player";
 import RemotionComposition from "../../../_components/RemotionComposition";
 
 const RemotionPlayer = ({ videoData }) => {
-  const [durationInFrames, setDurationInFrame] = useState(100);
+  // const [durationInFrames, setDurationInFrame] = useState(100);
 
-  console.log(videoData, "remotionplayer");
 
   return (
     <div>
       <Player
         component={RemotionComposition}
-        durationInFrames={Math.round(durationInFrames)}
+        durationInFrames={videoData?.captionsJson ? Math.round(videoData?.captionsJson[videoData?.captionsJson.length - 1]?.end * 30):200}
         compositionWidth={720}
         compositionHeight={1280}
         fps={30}
@@ -23,7 +22,6 @@ const RemotionPlayer = ({ videoData }) => {
         }}
         inputProps={{
           videoData,
-          setDurationInFrame,
         }}
       />
     </div>
