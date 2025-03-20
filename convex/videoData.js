@@ -46,6 +46,7 @@ export const updateVideoRecord = mutation({
       audioUrl: args?.audioUrl,
       captionsJson: args?.captionsJson,
       images: args?.images,
+      downloadUrl: args.downloadUrl,
       status: "completed",
     });
 

@@ -13,7 +13,7 @@ const VideoList = () => {
   const [videoList, setVideoList] = useState([]);
   const convex = useConvex();
   const { user } = useAuthContext();
-
+  console.log(videoList,"listttt")
   useEffect(() => {
     user && getUserVideoList();
   }, [user]);
@@ -23,7 +23,7 @@ const VideoList = () => {
     const result = await convex.query(api?.videoData?.getUserVideos, {
       uid: user?._id,
     });
-    console.log(result,"videos")
+
     setVideoList(result);
     const isPendingVideo = result?.find((item) => item?.status === "pending");
     isPendingVideo && getVideoPendingStatus(isPendingVideo);
