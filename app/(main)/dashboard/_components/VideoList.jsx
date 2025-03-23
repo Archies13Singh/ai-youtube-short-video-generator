@@ -13,7 +13,7 @@ const VideoList = () => {
   const [videoList, setVideoList] = useState([]);
   const convex = useConvex();
   const { user } = useAuthContext();
-  console.log(videoList,"listttt")
+
   useEffect(() => {
     user && getUserVideoList();
   }, [user]);

@@ -6,23 +6,22 @@ import { auth } from "../configs/firebaseConfig";
 import { AuthContext } from "./_context/AuthContext";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const Provider = ({ children }) => {
   const [user, setUser] = useState();
   const createUser = useMutation(api?.users?.createNewUsers);
 
-
   useEffect(() => {
-    const unsubscribed = onAuthStateChanged(auth, async(user) => {
-
+    const unsubscribed = onAuthStateChanged(auth, async (user) => {
       const result = await createUser({
-        name : user?.displayName,
-        email : user?.email,
-        photoURL : user?.photoURL,
-      })
+        name: user?.displayName,
+        email: user?.email,
+        photoURL: user?.photoURL,
+      });
 
-      console.log(result,"result")
-      setUser(result)
+      console.log(result, "result");
+      setUser(result);
     });
 
     return () => unsubscribed();
@@ -30,14 +29,18 @@ const Provider = ({ children }) => {
   return (
     <div>
       <AuthContext.Provider value={{ user }}>
-        <NextThemesProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
+        <PayPalScriptProvider
+          options={{ clientId: process.env.PAYPAL_CLIENT_ID }}
         >
-          {children}
-        </NextThemesProvider>
+          <NextThemesProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </NextThemesProvider>
+        </PayPalScriptProvider>
       </AuthContext.Provider>
     </div>
   );

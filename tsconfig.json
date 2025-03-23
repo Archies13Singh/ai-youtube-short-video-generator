@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "inngest/client.js"  ],
+, "inngest/client.js", "app/(main)/billing/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
