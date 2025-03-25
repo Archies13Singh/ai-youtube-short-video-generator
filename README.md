@@ -48,3 +48,13 @@ npx remotion studio remotion/index.ts
 
 <!-- docker server -->
 docker compose up
+
+
+<!-- Logins -->
+
+for logins in Inggest used github credrntials
+for vercel login github credentials 
+for convex login github credentials or archiessingh04@gmail.com
+
+
+color theme ddbdfc

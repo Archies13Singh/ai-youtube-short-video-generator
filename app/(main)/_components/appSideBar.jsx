@@ -22,6 +22,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuthContext } from "../../../app/provider";
+import Image from "next/image";
 
 const AppSideBar = () => {
   const MenuItems = [
@@ -53,7 +54,18 @@ const AppSideBar = () => {
   return (
     <Sidebar>
       <SidebarHeader>
-        <h1 className="text-2xl font-2xl text-center mt-3">AVI IDO</h1>
+        <div className="flex justify-center align-center">
+          <Image
+            src={
+              "https://firebasestorage.googleapis.com/v0/b/imagestorage-6c529.appspot.com/o/HFTkj4OSb3YxnwMBg9OVQxzTrMK2%2Fimages%2FVidGenie.png?alt=media&token=8f90d7cb-cf0c-4629-b189-7f5c939853cc"
+            }
+            width={200}
+            height={200}
+            alt="VidGenie"
+            // className="w-full h-full"
+          />
+        </div>
+
         <h3 className="text-sm text-center text-gray-500">
           AI Short Video Generator
         </h3>
@@ -62,7 +74,7 @@ const AppSideBar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <div className="mx-5 mt-5">
-              <Link href='/create-new-video'>
+              <Link href="/create-new-video">
                 <Button className="w-full"> + Create New Video</Button>
               </Link>
             </div>

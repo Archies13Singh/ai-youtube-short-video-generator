@@ -9,10 +9,11 @@ import Link from "next/link";
 const Header = () => {
   const { user } = useAuthContext();
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex justify-between items-center p-2">
       {/* logo */}
       <div>
-        <h1 className="text-2xl font-2xl">AVI IDO</h1>
+       
+       <Image src={"https://firebasestorage.googleapis.com/v0/b/imagestorage-6c529.appspot.com/o/HFTkj4OSb3YxnwMBg9OVQxzTrMK2%2Fimages%2FVidGenie.png?alt=media&token=8f90d7cb-cf0c-4629-b189-7f5c939853cc"} width={200} height={200} alt="VidGenie"/>
       </div>
       {/* content */}
       <div>
