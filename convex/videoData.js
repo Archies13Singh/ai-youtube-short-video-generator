@@ -69,6 +69,10 @@ export const getUserVideos = query({
   },
 });
 
+export const getAllVideos = query(async ({ db }) => {
+  return await db.query("videoData").collect();
+});
+
 export const getVideoById = query({
   args: {
     videoId: v.id("videoData"),

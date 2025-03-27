@@ -52,7 +52,7 @@ const AppSideBar = () => {
   const { user } = useAuthContext();
 
   return (
-    <Sidebar>
+    <Sidebar className="bg-[#EFA6DC]">
       <SidebarHeader>
         <div className="flex justify-center align-center">
           <Image
@@ -66,7 +66,7 @@ const AppSideBar = () => {
           />
         </div>
 
-        <h3 className="text-sm text-center text-gray-500">
+        <h3 className="text-sm text-center text-[#7b2cbf]">
           AI Short Video Generator
         </h3>
       </SidebarHeader>
@@ -83,11 +83,19 @@ const AppSideBar = () => {
                 <SidebarMenuItem key={index} className="mt-3">
                   <SidebarMenuButton
                     isActive={path === item?.url}
-                    className="p-5"
+                    className="p-5 w-full"
                   >
-                    <Link href={item?.url} className="flex items-center gap-4">
-                      <item.icon />
-                      {item.title}
+                    <Link href={item?.url} className="flex items-center gap-4 w-full">
+                      <item.icon
+                        className={`${
+                          path === item?.url ? "text-white" : "text-[#7b2cbf]"
+                        }`}
+                      />
+                      <p
+                        className={`${path === item?.url ? "text-white" : "text-[#7b2cbf]"}`}
+                      >
+                        {item.title}
+                      </p>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -99,10 +107,10 @@ const AppSideBar = () => {
         <SidebarGroup></SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div className="px-6 py-5 border rounded-lg mb-6 bg-gray-800">
+        <div className="px-6 py-5 border rounded-lg mb-6 bg-[#7b2cbf]">
           <div className="flex items-center justify-between">
-            <Gem className="text-gray-400" />
-            <h2 className="text-gray-400">{user?.credits} credits left</h2>
+            <Gem className="text-white" />
+            <h2 className="text-white">{user?.credits} credits left</h2>
           </div>
           <Button className="w-full mt-5">Buy More Credits</Button>
         </div>

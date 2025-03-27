@@ -11,6 +11,7 @@ import axios from "axios";
 import { useMutation } from "convex/react";
 import { useAuthContext } from "../../provider";
 import { api } from "../../../convex/_generated/api";
+import { SparklesText } from "../../../components/ui/sparkles-text";
 
 const CreateNewVideo = () => {
   const [formData, setFormData] = useState();
@@ -80,7 +81,7 @@ const CreateNewVideo = () => {
 
   return (
     <div>
-      <h2 className="text-3xl">Create New Video</h2>
+      <SparklesText text="Create New Video" className="text-5xl" sparklesCount={10}/>
       <div className="grid grid-cols-1 md:grid-cols-3 mt-8 gap-7">
         <div className="col-span-2 p-7 border rounded-xl min-h-screen overflow-auto">
           {/* Topic and Script */}
