@@ -41,7 +41,7 @@ const LogoutWeb = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Sign Out</DialogTitle>
           <DialogDescription>
           Are you sure you want to log out?
           </DialogDescription>

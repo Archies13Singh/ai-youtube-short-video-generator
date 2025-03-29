@@ -12,11 +12,13 @@ import { useMutation } from "convex/react";
 import { useAuthContext } from "../../provider";
 import { api } from "../../../convex/_generated/api";
 import { SparklesText } from "../../../components/ui/sparkles-text";
+import { useRouter } from "next/navigation";
 
 const CreateNewVideo = () => {
   const [formData, setFormData] = useState();
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
+  const router = useRouter()
   const createInitialVideoDataRecord = useMutation(
     api?.videoData?.CreateVideoData
   );
@@ -72,9 +74,11 @@ const CreateNewVideo = () => {
       });
 
       console.log("API response:", result.data);
+
     } catch (error) {
       console.error("Error generating video:", error);
     } finally {
+      router.push('/create-new-video')
       setLoading(false);
     }
   };
