@@ -1,30 +1,41 @@
 "use client";
-import React, { use, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../configs/firebaseConfig";
 import { AuthContext } from "./_context/AuthContext";
+import { useRouter } from "next/navigation";  // Import useRouter for navigation
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 
 const Provider = ({ children }) => {
   const [user, setUser] = useState();
+  const router = useRouter();
   const createUser = useMutation(api?.users?.createNewUsers);
 
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, async (user) => {
-      const result = await createUser({
-        name: user?.displayName,
-        email: user?.email,
-        photoURL: user?.photoURL,
-      });
+      if (user) {
+        // If a user is logged in, create the user in the database
+        const result = await createUser({
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        });
 
-      console.log(result, "result");
-      setUser(result);
+        console.log(result, "result");  // Log the result of the user creation
+        setUser(result);
+      } else {
+        // If no user is authenticated, redirect to the home page
+        setUser(null);
+        router.push("/");  // Navigate to home page
+      }
     });
 
+    // Cleanup on unmount
     return () => unsubscribed();
-  }, []);
+  }, [router, createUser]);
+
   return (
     <div>
       <AuthContext.Provider value={{ user }}>

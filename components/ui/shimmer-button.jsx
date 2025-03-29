@@ -4,11 +4,11 @@ import { cn } from "../../lib/utils";
 
 export const ShimmerButton = React.forwardRef((
   {
-    shimmerColor = "#ffffff",
-    shimmerSize = "0.05em",
+    shimmerColor = "#7b2cbf",
+    shimmerSize = "0.3em",
     shimmerDuration = "3s",
-    borderRadius = "100px",
-    background = "rgba(0, 0, 0, 1)",
+    borderRadius = "0px",
+    background = "#FCF5E5",
     className,
     children,
     ...props
@@ -28,7 +28,7 @@ export const ShimmerButton = React.forwardRef((
         }
       }
       className={cn(
-        "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-white/10 px-6 py-3 text-white [background:var(--bg)] [border-radius:var(--radius)] dark:text-black",
+        "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-white/10 px-6 py-3 text-white [background:var(--bg)] [border-radius:10px] dark:text-black",
         "transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px",
         className
       )}
@@ -42,7 +42,7 @@ export const ShimmerButton = React.forwardRef((
         )}>
         {/* spark */}
         <div
-          className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
+          className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] border-lg [mask:none]">
           {/* spark before */}
           <div
             className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
@@ -53,7 +53,7 @@ export const ShimmerButton = React.forwardRef((
       <div
         className={cn(
           "insert-0 absolute size-full",
-          "rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#ffffff1f]",
+          "px-4 py-1 text-sm font-medium shadow-[inset_0_-8px_10px_#ffffff1f]",
           // transition
           "transform-gpu transition-all duration-300 ease-in-out",
           // on hover
@@ -64,7 +64,7 @@ export const ShimmerButton = React.forwardRef((
       {/* backdrop */}
       <div
         className={cn(
-          "absolute -z-20 [background:var(--bg)] [border-radius:var(--radius)] [inset:var(--cut)]"
+          "absolute -z-20 [background:var(--bg)] [border-radius:10px] [inset:var(--cut)]"
         )} />
     </button>)
   );

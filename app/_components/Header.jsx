@@ -1,10 +1,8 @@
 "use client";
-import { Button } from "../../components/ui/button";
 import React from "react";
 import Authentication from "./Authentication";
 import { useAuthContext } from "../provider";
 import Image from "next/image";
-import Link from "next/link";
 // import { ShimmerButton } from "../../components/ui/shimmer-button";
 const Header = () => {
   const { user } = useAuthContext();
@@ -23,16 +21,8 @@ const Header = () => {
       </div>
       {/* content */}
       <div>
-        <Authentication>
-          {!user ? (
-            <Button>
-                Get Started
-            </Button>
-          ) : (
+          {user && (
             <div className="flex gap-3 items-center">
-              <Link href="/dashboard">
-                <Button>DashBoard</Button>
-              </Link>
               <Image
                 src={user?.photoURL}
                 alt="userImage"
@@ -42,7 +32,7 @@ const Header = () => {
               />
             </div>
           )}
-        </Authentication>
+      
       </div>
     </div>
   );
