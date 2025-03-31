@@ -46,6 +46,11 @@ const AppSideBar = () => {
       url: "/billing",
       icon: WalletCards,
     },
+    {
+      title: "Contact",
+      url: "/contact",
+      icon: WalletCards,
+    },
   ];
 
   const path = usePathname();

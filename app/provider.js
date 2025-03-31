@@ -23,7 +23,6 @@ const Provider = ({ children }) => {
           photoURL: user.photoURL,
         });
 
-        console.log(result, "result");  // Log the result of the user creation
         setUser(result);
       } else {
         // If no user is authenticated, redirect to the home page
